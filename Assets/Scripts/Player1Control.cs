@@ -60,7 +60,7 @@ public class Player1Control : NetworkBehaviour {
             {
                 transform.position = cameraList[0].transform.position;
                 transform.LookAt(cameraList[0].transform.GetChild(0),Vector3.up);
-                cam.localRotation = Quaternion.Euler(20,0,0);
+                cam.localRotation = Quaternion.Euler(10,0,0);
             }
 
         }
