@@ -12,8 +12,11 @@ public class Player1Control : NetworkBehaviour {
 
     CharacterController controller;
     public Light flashLight;
+    //public Light nightLight;
 
     GameObject[] cameraList;
+
+    int currentCamera = 0;
     
 
 	// Use this for initialization
@@ -54,13 +57,31 @@ public class Player1Control : NetworkBehaviour {
         {
             flashLight.enabled = false;
 
-            RenderSettings.ambientIntensity = 0.8f;
+            RenderSettings.ambientIntensity = 0.35f;
+
+            if(Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                currentCamera++;
+                if(currentCamera >= cameraList.Length)
+                {
+                    currentCamera = 0;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                currentCamera--;
+                if (currentCamera <= 0)
+                {
+                    currentCamera = cameraList.Length - 1;
+                }
+            }
 
             if (cameraList.Length > 0)
             {
-                transform.position = cameraList[0].transform.position;
-                transform.LookAt(cameraList[0].transform.GetChild(0),Vector3.up);
-                cam.localRotation = Quaternion.Euler(10,0,0);
+                transform.position = cameraList[currentCamera].transform.position;
+                transform.LookAt(cameraList[currentCamera].transform.GetChild(0),Vector3.up);
+                cam.localRotation = Quaternion.Euler(0,0,0);
             }
 
         }
